@@ -128,5 +128,55 @@ public class DatabaseUtil {
 
         return flight;
     }
+    
+    public static boolean cancelBooking(int bookingId) {
+        String updateBookingQuery = "UPDATE bookings SET status = 'Canceled' WHERE bookingId = ?";
+        String updateSeatsQuery = "UPDATE flights SET availableSeats = availableSeats + ? WHERE flightId = ?";
+        String fetchBookingQuery = "SELECT flightId, seatsBooked FROM bookings WHERE bookingId = ? AND status = 'Confirmed'";
+
+        try (Connection connection = getConnection()) {
+            // Start a transaction
+            connection.setAutoCommit(false);
+
+            int flightId = 0;
+            int seatsBooked = 0;
+
+            // Fetch flightId and seatsBooked for the booking
+            try (PreparedStatement fetchStmt = connection.prepareStatement(fetchBookingQuery)) {
+                fetchStmt.setInt(1, bookingId);
+                ResultSet rs = fetchStmt.executeQuery();
+
+                if (rs.next()) {
+                    flightId = rs.getInt("flightId");
+                    seatsBooked = rs.getInt("seatsBooked");
+                } else {
+                    // No matching booking found or already canceled
+                    return false;
+                }
+            }
+
+            // Update the booking status to "Canceled"
+            try (PreparedStatement updateBookingStmt = connection.prepareStatement(updateBookingQuery)) {
+                updateBookingStmt.setInt(1, bookingId);
+                updateBookingStmt.executeUpdate();
+            }
+
+            // Restore the seat count in the flights table
+            try (PreparedStatement updateSeatsStmt = connection.prepareStatement(updateSeatsQuery)) {
+                updateSeatsStmt.setInt(1, seatsBooked);
+                updateSeatsStmt.setInt(2, flightId);
+                updateSeatsStmt.executeUpdate();
+            }
+
+            // Commit the transaction
+            connection.commit();
+            return true;
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+    
 
 }
