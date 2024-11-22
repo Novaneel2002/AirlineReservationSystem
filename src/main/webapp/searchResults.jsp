@@ -19,6 +19,7 @@
                 <th>Available Seats</th>
                 <th>Flight Time</th>
                 <th>Flight Class</th>
+                <th>Book Flight</th> 
             </tr>
         </thead>
         <tbody>
@@ -34,6 +35,12 @@
                 <td><%= flight.getAvailableSeats() %></td>
                 <td><%= flight.getFlightTime() %></td>
                 <td><%= flight.getFlightClass() %></td>
+                <td>
+                    <!-- Booking Button -->
+                    <a href="bookingForm.jsp?flightId=<%= flight.getFlightId() %>" >
+                        Book Now
+                    </a>
+                </td>
             </tr>
             <% 
                     }
