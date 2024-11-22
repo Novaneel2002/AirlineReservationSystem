@@ -101,5 +101,32 @@ public class DatabaseUtil {
             return false;
         }
     }
+    
+    
+    public static Flight getFlightDetailsById(int flightId) {
+        Flight flight = null;
+        String query = "SELECT * FROM flights WHERE flightId = ?";
+
+        try (Connection connection = getConnection();
+             PreparedStatement stmt = connection.prepareStatement(query)) {
+            stmt.setInt(1, flightId); // Set the flightId as an integer
+            ResultSet rs = stmt.executeQuery();
+
+            if (rs.next()) {
+                flight = new Flight(
+                    rs.getInt("flightId"),
+                    rs.getString("departure"),
+                    rs.getString("destination"),
+                    rs.getInt("availableSeats"),
+                    rs.getString("flightTime"),
+                    rs.getString("flightClass")
+                );
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return flight;
+    }
 
 }
