@@ -1,5 +1,5 @@
 package com.airline;
-
+import com.airline.Booking;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -176,6 +176,32 @@ public class DatabaseUtil {
             e.printStackTrace();
             return false;
         }
+    }
+    
+    public static List<Booking> getAllBookings() {
+        List<Booking> bookings = new ArrayList<>();
+        String query = "SELECT * FROM bookings WHERE status = 'Confirmed'";
+
+        try (Connection connection = getConnection();
+             PreparedStatement stmt = connection.prepareStatement(query);
+             ResultSet rs = stmt.executeQuery()) {
+
+            while (rs.next()) {
+                bookings.add(new Booking(
+                    rs.getInt("bookingId"),
+                    rs.getInt("flightId"),
+                    rs.getString("passengerName"),
+                    rs.getString("passengerEmail"),
+                    rs.getInt("seatsBooked"),
+                    rs.getTimestamp("bookingDate")
+                ));
+                
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        System.out.println("Bookings fetched: " + bookings.size());
+        return bookings;
     }
     
 

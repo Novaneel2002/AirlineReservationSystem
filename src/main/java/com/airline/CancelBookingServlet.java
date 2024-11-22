@@ -1,9 +1,11 @@
 package com.airline;
 
 import javax.servlet.*;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.*;
 import java.io.IOException;
 
+@WebServlet("/cancelBooking")
 public class CancelBookingServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String bookingIdParam = request.getParameter("bookingId");

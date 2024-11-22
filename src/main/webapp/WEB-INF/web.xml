@@ -16,12 +16,7 @@
         <url-pattern>/search</url-pattern>
     </servlet-mapping>
 
-	<servlet>
-    	<servlet-name>CancelBookingServlet</servlet-name>
-    	<servlet-class>com.airline.CancelBookingServlet</servlet-class>
-	</servlet>
-	<servlet-mapping>
-    	<servlet-name>CancelBookingServlet</servlet-name>
-    	<url-pattern>/cancelBooking</url-pattern>
-	</servlet-mapping>
+	
+	
+	
 </web-app>
