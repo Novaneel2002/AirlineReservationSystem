@@ -10,16 +10,19 @@ import java.util.List;
 @WebServlet("/searchFlights")
 public class SearchFlightServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-    	DatabaseUtil.testConnection();
+        DatabaseUtil.testConnection();
         String departure = request.getParameter("departure");
         String destination = request.getParameter("destination");
         System.out.println(departure);
         System.out.println(destination);
+        
         // Call the DatabaseUtil to search flights and get the list of flights
         List<Flight> flights = DatabaseUtil.searchFlights(departure, destination);
         for (Flight flight : flights) {
             System.out.println("Flight ID: " + flight.getFlightId());
+            System.out.println("Price: " + flight.getPrice());  // Log the price for each flight
         }
+        
         // Set the List of flights as a request attribute for the JSP page
         request.setAttribute("flights", flights);
 

@@ -40,6 +40,7 @@
         <p>Available Seats: <%= flight.getAvailableSeats() %></p>
         <p>Flight Time: <%= flight.getFlightTime() %></p>
         <p>Flight Class: <%= flight.getFlightClass() %></p>
+        <p>Flight Class: <%= flight.getFlightType() %></p>
 
         <form action="bookFlight" method="post">
             <input type="hidden" name="flightId" value="<%= flightId %>">

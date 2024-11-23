@@ -49,16 +49,17 @@ public class DatabaseUtil {
 
             // Extract data from the ResultSet and add to the flights list
             while (resultSet.next()) {
-            	System.out.println(resultSet.getInt("flightId"));
                 int flightId = resultSet.getInt("flightId");
                 String dep = resultSet.getString("departure");
                 String dest = resultSet.getString("destination");
                 int availableSeats = resultSet.getInt("availableSeats");
                 String flightTime = resultSet.getString("flightTime");
                 String flightClass = resultSet.getString("flightClass");
+                int price = resultSet.getInt("price");  // Fetch the price column
+                String flightType = resultSet.getString("flightType"); // Fetch the flightType column
 
-                // Add the flight to the list
-                flights.add(new Flight(flightId, dep, dest, availableSeats, flightTime, flightClass));
+                // Add the flight to the list with the price and flightType
+                flights.add(new Flight(flightId, dep, dest, availableSeats, flightTime, flightClass, price, flightType));
             }
 
         } catch (SQLException e) {
@@ -67,15 +68,38 @@ public class DatabaseUtil {
 
         return flights;
     }
-    
+
 //    Booking Flight
     public static boolean bookFlight(int flightId, String passengerName, String passengerEmail, int seatsBooked) {
-        String insertQuery = "INSERT INTO bookings (flightId, passengerName, passengerEmail, seatsBooked) VALUES (?, ?, ?, ?)";
+        // Query to get the departure and destination of the flight
+        String getFlightDetailsQuery = "SELECT departure, destination FROM flights WHERE flightId = ?";
+        
+        // Query to insert the booking with departure and destination
+        String insertQuery = "INSERT INTO bookings (flightId, passengerName, passengerEmail, seatsBooked, departure, destination) VALUES (?, ?, ?, ?, ?, ?)";
+        
+        // Query to update available seats in the flights table
         String updateSeatsQuery = "UPDATE flights SET availableSeats = availableSeats - ? WHERE flightId = ?";
-
+        
         try (Connection connection = getConnection()) {
             // Start a transaction
             connection.setAutoCommit(false);
+            
+            // Fetch the departure and destination for the flightId
+            String departure = null;
+            String destination = null;
+            
+            try (PreparedStatement flightDetailsStmt = connection.prepareStatement(getFlightDetailsQuery)) {
+                flightDetailsStmt.setInt(1, flightId);
+                try (ResultSet rs = flightDetailsStmt.executeQuery()) {
+                    if (rs.next()) {
+                        departure = rs.getString("departure");
+                        destination = rs.getString("destination");
+                    } else {
+                        // If the flight is not found, return false
+                        return false;
+                    }
+                }
+            }
 
             // Insert booking
             try (PreparedStatement insertStmt = connection.prepareStatement(insertQuery)) {
@@ -83,6 +107,8 @@ public class DatabaseUtil {
                 insertStmt.setString(2, passengerName);
                 insertStmt.setString(3, passengerEmail);
                 insertStmt.setInt(4, seatsBooked);
+                insertStmt.setString(5, departure);  // Add departure
+                insertStmt.setString(6, destination);  // Add destination
                 insertStmt.executeUpdate();
             }
 
@@ -101,7 +127,7 @@ public class DatabaseUtil {
             return false;
         }
     }
-    
+
     
     public static Flight getFlightDetailsById(int flightId) {
         Flight flight = null;
@@ -119,7 +145,9 @@ public class DatabaseUtil {
                     rs.getString("destination"),
                     rs.getInt("availableSeats"),
                     rs.getString("flightTime"),
-                    rs.getString("flightClass")
+                    rs.getString("flightClass"),
+                    rs.getInt("price"),        // Add the price field
+                    rs.getString("flightType") // Add the flightType field
                 );
             }
         } catch (SQLException e) {
@@ -128,6 +156,8 @@ public class DatabaseUtil {
 
         return flight;
     }
+
+
     
     public static boolean cancelBooking(int bookingId) {
         String updateBookingQuery = "UPDATE bookings SET status = 'Canceled' WHERE bookingId = ?";
@@ -180,7 +210,11 @@ public class DatabaseUtil {
     
     public static List<Booking> getAllBookings() {
         List<Booking> bookings = new ArrayList<>();
-        String query = "SELECT * FROM bookings WHERE status = 'Confirmed'";
+//        String query = "SELECT * FROM bookings WHERE status = 'Confirmed'";
+        String query = "SELECT b.bookingId, b.flightId, b.passengerName, b.passengerEmail, b.seatsBooked, b.bookingDate, b.departure, b.destination, f.price " +
+                "FROM bookings b " +
+                "JOIN flights f ON b.flightId = f.flightId " +
+                "WHERE b.status = 'Confirmed'";
 
         try (Connection connection = getConnection();
              PreparedStatement stmt = connection.prepareStatement(query);
@@ -193,16 +227,19 @@ public class DatabaseUtil {
                     rs.getString("passengerName"),
                     rs.getString("passengerEmail"),
                     rs.getInt("seatsBooked"),
-                    rs.getTimestamp("bookingDate")
+                    rs.getTimestamp("bookingDate"),
+                    rs.getString("departure"),  // Fetching departure
+                    rs.getString("destination"),
+                    rs.getInt("price")// Fetching destination
                 ));
-                
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
+        
         System.out.println("Bookings fetched: " + bookings.size());
         return bookings;
     }
-    
+
 
 }

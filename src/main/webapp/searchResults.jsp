@@ -19,6 +19,8 @@
                 <th>Available Seats</th>
                 <th>Flight Time</th>
                 <th>Flight Class</th>
+                <th>Price</th> <!-- New Price column -->
+                <th>Flight Type</th> <!-- New Flight Type column -->
                 <th>Book Flight</th> 
             </tr>
         </thead>
@@ -35,6 +37,8 @@
                 <td><%= flight.getAvailableSeats() %></td>
                 <td><%= flight.getFlightTime() %></td>
                 <td><%= flight.getFlightClass() %></td>
+                <td>Rs.<%= flight.getPrice() %></td> <!-- Displaying price -->
+                <td><%= flight.getFlightType() %></td> <!-- Displaying flight type -->
                 <td>
                     <!-- Booking Button -->
                     <a href="bookingForm.jsp?flightId=<%= flight.getFlightId() %>" >
@@ -47,7 +51,7 @@
                 } else {
             %>
             <tr>
-                <td colspan="6">No flights found for the selected route.</td>
+                <td colspan="8">No flights found for the selected route.</td>
             </tr>
             <% 
                 }
