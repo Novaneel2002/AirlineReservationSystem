@@ -3,10 +3,10 @@ Airline Reservation System - Setup Guide
 
 >Version used:
 
-java version "1.8.0_202" .
-Java(TM) SE Runtime Environment (build 1.8.0_202-b08) .
-Java HotSpot(TM) 64-Bit Server VM (build 25.202-b08, mixed mode) .
-Apache Tomcat 9 .
+- java version "1.8.0_202"  
+- Java(TM) SE Runtime Environment (build 1.8.0_202-b08)  
+- Java HotSpot(TM) 64-Bit Server VM (build 25.202-b08, mixed mode)   
+- Apache Tomcat 9   
 
 
 Note - Refer Chatgpt or Youtube for detailed explanation and guidance on each point.
