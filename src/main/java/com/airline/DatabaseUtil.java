@@ -20,6 +20,8 @@ public class DatabaseUtil {
             throw new SQLException("Database connection error", e);
         }
     }
+
+    // Test the database connection
     public static void testConnection() {
         try (Connection connection = getConnection()) {
             if (connection != null) {
@@ -32,6 +34,7 @@ public class DatabaseUtil {
             e.printStackTrace();
         }
     }
+
     // Method to search flights based on departure and destination
     public static List<Flight> searchFlights(String departure, String destination) {
         List<Flight> flights = new ArrayList<>();
@@ -69,13 +72,13 @@ public class DatabaseUtil {
         return flights;
     }
 
-//    Booking Flight
-    public static boolean bookFlight(int flightId, String passengerName, String passengerEmail, int seatsBooked) {
+    // Method to book a flight
+    public static boolean bookFlight(int flightId, String passengerName, String passengerEmail, int seatsBooked, String date) {
         // Query to get the departure and destination of the flight
         String getFlightDetailsQuery = "SELECT departure, destination FROM flights WHERE flightId = ?";
         
         // Query to insert the booking with departure and destination
-        String insertQuery = "INSERT INTO bookings (flightId, passengerName, passengerEmail, seatsBooked, departure, destination) VALUES (?, ?, ?, ?, ?, ?)";
+        String insertQuery = "INSERT INTO bookings (flightId, passengerName, passengerEmail, seatsBooked, departure, destination, bookingDate) VALUES (?, ?, ?, ?, ?, ?, ?)";
         
         // Query to update available seats in the flights table
         String updateSeatsQuery = "UPDATE flights SET availableSeats = availableSeats - ? WHERE flightId = ?";
@@ -108,7 +111,8 @@ public class DatabaseUtil {
                 insertStmt.setString(3, passengerEmail);
                 insertStmt.setInt(4, seatsBooked);
                 insertStmt.setString(5, departure);  // Add departure
-                insertStmt.setString(6, destination);  // Add destination
+                insertStmt.setString(6, destination);
+                insertStmt.setString(7, date);// Add destination
                 insertStmt.executeUpdate();
             }
 
@@ -128,7 +132,7 @@ public class DatabaseUtil {
         }
     }
 
-    
+    // Method to fetch flight details by flightId
     public static Flight getFlightDetailsById(int flightId) {
         Flight flight = null;
         String query = "SELECT * FROM flights WHERE flightId = ?";
@@ -157,8 +161,7 @@ public class DatabaseUtil {
         return flight;
     }
 
-
-    
+    // Method to cancel a booking
     public static boolean cancelBooking(int bookingId) {
         String updateBookingQuery = "UPDATE bookings SET status = 'Canceled' WHERE bookingId = ?";
         String updateSeatsQuery = "UPDATE flights SET availableSeats = availableSeats + ? WHERE flightId = ?";
@@ -207,10 +210,10 @@ public class DatabaseUtil {
             return false;
         }
     }
-    
+
+    // Method to get all confirmed bookings
     public static List<Booking> getAllBookings() {
         List<Booking> bookings = new ArrayList<>();
-//        String query = "SELECT * FROM bookings WHERE status = 'Confirmed'";
         String query = "SELECT b.bookingId, b.flightId, b.passengerName, b.passengerEmail, b.seatsBooked, b.bookingDate, b.departure, b.destination, f.price " +
                 "FROM bookings b " +
                 "JOIN flights f ON b.flightId = f.flightId " +
@@ -227,10 +230,10 @@ public class DatabaseUtil {
                     rs.getString("passengerName"),
                     rs.getString("passengerEmail"),
                     rs.getInt("seatsBooked"),
-                    rs.getTimestamp("bookingDate"),
+                    rs.getString("bookingDate"),
                     rs.getString("departure"),  // Fetching departure
                     rs.getString("destination"),
-                    rs.getInt("price")// Fetching destination
+                    rs.getInt("price")// Fetching price
                 ));
             }
         } catch (SQLException e) {
@@ -240,6 +243,4 @@ public class DatabaseUtil {
         System.out.println("Bookings fetched: " + bookings.size());
         return bookings;
     }
-
-
 }

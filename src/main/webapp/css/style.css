@@ -40,7 +40,7 @@ body {
 
     background-repeat: no-repeat;
     background-attachment: fixed;
-    border: solid red 1px;
+    /* border: solid red 1px; */
     background-size: cover;
     margin: 0 !important;
     /* border-top: 10px rgba(72, 209, 255, 0.474) groove; */

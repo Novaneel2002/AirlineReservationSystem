@@ -1,0 +1,10 @@
+@charset "UTF-8";
+
+.tablehead > th{
+    background-color: #294067 !important;
+    color: white !important;
+}
+.table-content > td{
+    font-size: 1.2rem;
+    font-weight: 400;
+}

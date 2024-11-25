@@ -4,149 +4,162 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Flight Search</title>
+    <!-- External CSS for styling -->
     <link rel="stylesheet" href="css/style.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Varela&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Varela&display=swap" rel="stylesheet">
 </head>
 <body>
-<div style="background-color:#294067 !important;" class="container-fluid bg-primary text-white text-center py-3 d-flex justify-content-between align-items-center">
-	<img src="Images/logo.png" alt="Colonial Flights Logo" class="img-fluid" style="max-height: 50px;">
-    <h1 style="font-weight: 500;" class="m-0">Welcome to Colonial Airlines</h1>
-    <form action="viewBookings" method="get" class="mb-0">
-        <button type="submit" style="background-color: #402ffe !important;" class=" btn btn-secondary">All Bookings</button>
-    </form>
-</div>
 
+    <!-- Navigation Bar with Logo and Title -->
+    <div style="background-color:#294067 !important;" class="container-fluid bg-primary text-white text-center py-3 d-flex justify-content-between align-items-center">
+        <img src="Images/logo.png" alt="Colonial Flights Logo" class="img-fluid" style="max-height: 50px;">
+        <h1 style="font-weight: 500;" class="m-0">Welcome to Colonial Airlines</h1>
+        <!-- Button to view all bookings -->
+        <form action="viewBookings" method="get" class="mb-0">
+            <button type="submit" style="background-color: #402ffe !important;" class=" btn btn-secondary">All Bookings</button>
+        </form>
+    </div>
 
-	
+    <!-- Main Content: Search for Flights Section -->
+    <div class="home container-fluid px-1 py-5 mx-auto">
+        <div class="row d-flex justify-content-center">
+            <div class="col-xl-5 col-lg-8 col-md-9 col-11 ">
+                <div class="myform card">
+                    <!-- Search Title -->
+                    <h5 style="font-size:2.2rem;" class="mytext text-center mb-4">Search for Flights</h5>
+                    <form class="form-card" style ="width:60%;" action="searchFlights" method="get">
+                        <!-- Departure Location Input -->
+                        <div class="row justify-content-center text-left mb-4">
+                            <div class="mytext form-group col-sm-10 flex-column d-flex"> 
+                                <label style="font-size: 18px;" class="form-control-label px-3">Departure<span class="text-danger"> *</span></label> 
+                                <input type="text" id="departure" name="departure" placeholder="Enter departure location" class="form-control"> 
+                            </div>
+                        </div>
+                        
+                        <!-- Destination Location Input -->
+                        <div class="row justify-content-center text-left mb-4">
+                            <div class="mytext form-group col-sm-10 flex-column d-flex"> 
+                                <label style="font-size: 18px;" class="form-control-label px-3">Destination<span class="text-danger"> *</span></label> 
+                                <input type="text" id="destination" name="destination" placeholder="Enter destination location" class="form-control"> 
+                            </div>
+                        </div>
+                        
+                        <!-- Flight Date Input -->
+                        <div class="row justify-content-center text-left mb-4">
+                            <div class="mytext form-group col-sm-10 flex-column d-flex"> 
+                                <label style="font-size: 18px;" class="form-control-label px-3">Flight Date<span class="text-danger"> *</span></label> 
+                                <input type="date" id="date" name="date" placeholder="Enter Date" class="form-control" required> 
+                            </div>
+                        </div>
+                        
+                        <!-- Search Button -->
+                        <div class="row m-4 justify-content-center">
+                            <div class="form-group col-sm-6"> 
+                                <button type="submit" class="btn btn-primary w-100">Search</button> 
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Explore More Section (Book Hotels and Hire Cars) -->
+    <div class="home2">
+        <div class="second row text-center">
+            <div class="col-md-12">
+                <div style="display:flex; gap:0.5rem;" class="mytext card p-3 ">
+                    <h3 style="font-weight: 500; font-size:2.2rem" class="card-title">Explore More</h3>
+                    <hr>
+                    <div class="d-flex justify-content-around">
+                        <!-- Book Hotels Button -->
+                        <form class="mr-3">
+                            <button style="font-size:1.3rem !important" type="submit" class=" btn btn-primary"><i class="bi bi-buildings-fill"></i> Book Hotels</button>
+                        </form>
+                        <!-- Hire Car Button -->
+                        <form>
+                            <button style="font-size:1.3rem !important" type="submit" class="btn btn-primary"><i class="bi bi-car-front"></i> Hire Car</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Facilities Section -->
+            <div class="col-md-6 mb-4">
+                <div class="card h-100 helo2">
+                    <div class="mytext card-body hello">
+                        <h2 class="card-title">Facilities</h5>
+                            <hr>
+                        <p style="font-size:1.2rem" class="card-text text-start">We offer a range of premium facilities, including spacious lounges equipped with complimentary refreshments and Wi-Fi, priority check-in services for a hassle-free start to your journey, and exclusive in-flight services such as gourmet meals, personalized entertainment, and reclining seats for your ultimate comfort. Whether you're traveling for business or leisure, Colonial Flights ensures a seamless and luxurious experience from takeoff to landing.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- History of Colonial Airlines Section -->
+            <div class="col-md-6 mb-4">
+                <div class="card h-100 helo2">
+                    <div class="mytext card-body hello">
+                        <h2 class="card-title">History of Colonial Airlines</h5>
+                            <hr>
+                        <p style="font-size:1.2rem" class="text-start card-text">Colonial Flights has been providing excellent air travel services for over 50 years. We pride ourselves on our legacy of safe, reliable, and customer-oriented services. With a network spanning 100+ destinations worldwide, we ensure comfort and convenience for every traveler. From luxurious in-flight amenities to eco-friendly practices, we are committed to redefining air travel standards. At Colonial Flights, your journey begins with trust and ends with unforgettable memories.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
     
-<div class="home container-fluid px-1 py-5 mx-auto">
-    <div class="row d-flex justify-content-center">
-        <div class="col-xl-5 col-lg-8 col-md-9 col-11 ">
-            <div class="myform card">
-                <h5 style="font-size:2.2rem;" class="mytext text-center mb-4">Search for Flights</h5>
-                <form class="form-card" style ="width:60%;" action="searchFlights" method="get">
-                    <div class="row justify-content-center text-left mb-4"> <!-- Added margin-bottom -->
-                        <div class="mytext form-group col-sm-10 flex-column d-flex"> 
-                            <label style="font-size: 18px;" class="form-control-label px-3">Departure<span class="text-danger"> *</span></label> 
-                            <input type="text" id="departure" name="departure" placeholder="Enter departure location" class="form-control"> 
-                        </div>
-                    </div>
-                    
-                    <div class="row justify-content-center text-left mb-4"> <!-- Added margin-bottom -->
-                        <div class="mytext form-group col-sm-10 flex-column d-flex"> 
-                            <label style="font-size: 18px;" class="form-control-label px-3">Destination<span class="text-danger"> *</span></label> 
-                            <input type="text" id="destination" name="destination" placeholder="Enter destination location" class="form-control"> 
-                        </div>
-                    </div>
-                    
-                    <div class="row justify-content-center text-left mb-4"> <!-- Added margin-bottom -->
-                        <div class="mytext form-group col-sm-10 flex-column d-flex"> 
-                            <label style="font-size: 18px;" class="form-control-label px-3">Flight Date<span class="text-danger"> *</span></label> 
-                            <input type="date" id="dateSystem" name="dateSystem" placeholder="Enter Date" class="form-control" required> 
-                        </div>
-                    </div>
-                    
-                    <div class="row m-4 justify-content-center">
-                        <div class="form-group col-sm-6"> 
-                            <button type="submit" class="btn btn-primary w-100">Search</button> 
-                        </div>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
-</div>
+    <!-- Footer Section -->
+    <footer class="bg-dark text-white py-4">
+        <div class="container">
+            <div class="row text-center text-md-start">
+                <!-- About Section -->
+                <div class="col-md-4 mb-3">
+                    <h5>About Us</h5>
+                    <p>
+                        Colonial Airlines has been connecting destinations worldwide with reliable service and customer satisfaction for over 50 years.
+                    </p>
+                </div>
 
-<div  class="home2">
-    <div class="second row text-center">
+                <!-- Quick Links Section -->
+                <div class="col-md-4 mb-3">
+                    <h5>Quick Links</h5>
+                    <ul class="list-unstyled">
+                        <li><a href="#" class="text-white text-decoration-none">Search Flights</a></li>
+                        <li><a href="#" class="text-white text-decoration-none">View Bookings</a></li>
+                        <li><a href="#" class="text-white text-decoration-none">Book Hotels</a></li>
+                        <li><a href="#" class="text-white text-decoration-none">Hire a Car</a></li>
+                    </ul>
+                </div>
 
-        <div  class="col-md-12">
-            <div style="display:flex; gap:0.5rem;" class="mytext card p-3 ">
-                <h3 style="font-weight: 500; font-size:2.2rem" class="card-title">Explore More</h3>
-                <hr>
-                <div class="d-flex justify-content-around">
-                    <form   class="mr-3">
-                        <button style="font-size:1.3rem !important" type="submit" class=" btn btn-primary"><i class="bi bi-buildings-fill"></i> Book Hotels</button>
-                    </form>
-                    <form >
-                        <button  style="font-size:1.3rem !important" type="submit" class="btn btn-primary"><i class="bi bi-car-front"></i> Hire Car</button>
-                    </form>
+                <!-- Contact Section -->
+                <div class="col-md-4 mb-3">
+                    <h5>Contact Us</h5>
+                    <p><i class="bi bi-geo-alt-fill"></i> 123 Flight Lane, Sky City, Cloud Country</p>
+                    <p><i class="bi bi-envelope-fill"></i> support@colonialflights.com</p>
+                    <p><i class="bi bi-telephone-fill"></i> +1-800-555-1234</p>
+                    <div>
+                        <!-- Social Media Links -->
+                        <a href="#" class="text-white me-2"><i class="bi bi-facebook"></i></a>
+                        <a href="#" class="text-white me-2"><i class="bi bi-twitter"></i></a>
+                        <a href="#" class="text-white me-2"><i class="bi bi-instagram"></i></a>
+                        <a href="#" class="text-white"><i class="bi bi-linkedin"></i></a>
+                    </div>
                 </div>
             </div>
-        </div>
 
-      
-        <div class="col-md-6 mb-4">
-            <div class="card h-100 helo2">
-                <div class="mytext card-body hello">
-                    <h2 class="card-title">Facilities</h5>
-                        <hr>
-                    <p style="font-size:1.2rem" class="card-text text-start">We offer a range of premium facilities, including spacious lounges equipped with complimentary refreshments and Wi-Fi, priority check-in services for a hassle-free start to your journey, and exclusive in-flight services such as gourmet meals, personalized entertainment, and reclining seats for your ultimate comfort. Whether you're traveling for business or leisure, Colonial Flights ensures a seamless and luxurious experience from takeoff to landing.</p>
-                </div>
+            <hr class="text-secondary">
+            <div class="text-center">
+                <p class="mb-0">© 2024 Colonial Airlines. All rights reserved.</p>
             </div>
         </div>
+    </footer>
 
- 
-        <div class="col-md-6 mb-4">
-            <div class="card h-100 helo2">
-                <div class="mytext card-body hello">
-                    <h2 class="card-title">History of Colonial Airlines</h5>
-                        <hr>
-                    <p style="font-size:1.2rem" class="text-start card-text">Colonial Flights has been providing excellent air travel services for over 50 years. We pride ourselves on our legacy of safe, reliable, and customer-oriented services. With a network spanning 100+ destinations worldwide, we ensure comfort and convenience for every traveler. From luxurious in-flight amenities to eco-friendly practices, we are committed to redefining air travel standards. At Colonial Flights, your journey begins with trust and ends with unforgettable memories.</p>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-	
-<footer class="bg-dark text-white py-4">
-    <div class="container">
-        <div class="row text-center text-md-start">
-            <!-- About Section -->
-            <div class="col-md-4 mb-3">
-                <h5>About Us</h5>
-                <p>
-                    Colonial Airlines has been connecting destinations worldwide with reliable service and customer satisfaction for over 50 years.
-                </p>
-            </div>
-
-            <!-- Quick Links -->
-            <div class="col-md-4 mb-3">
-                <h5>Quick Links</h5>
-                <ul class="list-unstyled">
-                    <li><a href="#" class="text-white text-decoration-none">Search Flights</a></li>
-                    <li><a href="#" class="text-white text-decoration-none">View Bookings</a></li>
-                    <li><a href="#" class="text-white text-decoration-none">Book Hotels</a></li>
-                    <li><a href="#" class="text-white text-decoration-none">Hire a Car</a></li>
-                </ul>
-            </div>
-
-            <!-- Contact Section -->
-            <div class="col-md-4 mb-3">
-                <h5>Contact Us</h5>
-                <p><i class="bi bi-geo-alt-fill"></i> 123 Flight Lane, Sky City, Cloud Country</p>
-                <p><i class="bi bi-envelope-fill"></i> support@colonialflights.com</p>
-                <p><i class="bi bi-telephone-fill"></i> +1-800-555-1234</p>
-                <div>
-                    <a href="#" class="text-white me-2"><i class="bi bi-facebook"></i></a>
-                    <a href="#" class="text-white me-2"><i class="bi bi-twitter"></i></a>
-                    <a href="#" class="text-white me-2"><i class="bi bi-instagram"></i></a>
-                    <a href="#" class="text-white"><i class="bi bi-linkedin"></i></a>
-                </div>
-            </div>
-        </div>
-
-        <hr class="text-secondary">
-        <div class="text-center">
-            <p class="mb-0">© 2024 Colonial Airlines. All rights reserved.</p>
-        </div>
-    </div>
-</footer>
-
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+    <!-- Bootstrap JS and dependencies -->
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz4fnFO9gyb6dMmMjk1kZx67w3ePpW6B13XyViOtbXa5e5d+Vp4sYxG6p7p" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js" integrity="sha384-pzjw8f+ua7Kw1TIq0x94iWvKkzV9Qe3rUo6O1p5pr+4jDoJ4Uw0lWmb0V57Fk6f9" crossorigin="anonymous"></script>
 </body>
 </html>
